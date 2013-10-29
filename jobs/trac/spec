@@ -1,0 +1,8 @@
+---
+name: trac
+
+templates:
+  tracd_ctl.erb: bin/tracd_ctl
+
+packages:
+  - trac

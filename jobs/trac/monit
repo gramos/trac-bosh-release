@@ -1,0 +1,8 @@
+check process trac
+  with pidfile /var/run/stub.pid
+  start program "/" with timeout 60 seconds
+  stop program "/bin/rm -f /var/run/stub.pid" with timeout 60 seconds
+  group vcap
+
+
+
