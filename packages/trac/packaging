@@ -1,0 +1,13 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+echo "Extracting trac..."
+tar xzf trac/Trac-1.0.1.tar.gz
+
+echo "Copying trac to bosh install target..."
+
+cp -r trac/Trac-1.0.1 ${BOSH_INSTALL_TARGET}
+
+echo "Installing dependencies..."
+easy_install Genshi
+easy_install pysqlite

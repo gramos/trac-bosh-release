@@ -1,0 +1,15 @@
+# abort script on any command that exits with a non zero value
+set -e
+echo "Extracting python..."
+tar xzf python/Python-2.5.6
+
+echo "Building python 2.5.6..."
+
+(
+  cd Python-2.5.6
+  ./configure --prefix=${BOSH_INSTALL_TARGET} 
+  make  
+  make install
+
+)
+

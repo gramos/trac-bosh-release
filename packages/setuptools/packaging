@@ -1,0 +1,9 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+PYTHON_CMD=${BOSH_INSTALL_TARGET}/usr/local/bin/python
+ 
+cd setuptools
+wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+
+$PYTHON_CMD ez_setup.py --user

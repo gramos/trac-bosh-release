@@ -1,0 +1,8 @@
+---
+name: setuptools
+
+dependencies:
+
+files:
+
+  - setuptools/ez_setup.py 
