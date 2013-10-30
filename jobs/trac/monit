@@ -1,7 +1,7 @@
 check process trac
-  with pidfile /var/run/stub.pid
-  start program "/" with timeout 60 seconds
-  stop program "/bin/rm -f /var/run/stub.pid" with timeout 60 seconds
+  with pidfile /var/run/tracd.pid
+  start program "bin/tracd_ctl start" with timeout 60 seconds
+  stop program "bin/tracd_ctl stop" with timeout 60 seconds
   group vcap
 
 
