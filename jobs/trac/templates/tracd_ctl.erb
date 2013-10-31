@@ -14,14 +14,14 @@ HOSTNAME=127.0.0.1 # to which hostname should we listen
 # If you only want to serve one project keep this variable
 # empty and set the PROJECT_ENV variable 
 ENV_PARENT_DIR=
-PROJECT_ENV=~/trac-project
+PROJECT_ENV=/usr/local/mytracproject
 PORT=9090
 # add any additional options (such as authentication) here. If you only have one
 # project you should probably add -s here
-ADDITIONAL_OPTS=-s
+ADDITIONAL_OPTS=
  
 ## Options you should probably not change ##
-DAEMON=~/.local/bin/tracd
+DAEMON=/usr/local/bin/tracd
 NAME=tracd
 DESC="web server"
 PIDFILE=/var/run/$NAME.pid
@@ -71,3 +71,6 @@ case "$1" in
 	echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload}" >&2
 	exit 1
 	;;
+esac
+ 
+exit 0
