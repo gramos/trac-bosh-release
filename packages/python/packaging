@@ -6,12 +6,15 @@ set -u # report the usage of uninitialized variables
 # $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
 export HOME=/var/vcap
 
-
-
+echo "Extracting python..."
 tar xfv python/Python-2.7.5.tgz
+
+echo "Compiling Python..."
 cd Python-2.7.5
 ./configure --prefix=${BOSH_INSTALL_TARGET}
 make
+
+echo "Installing Python in " ${BOSH_INSTALL_TARGET}
 make install
 # Alternatively, to copy archive contents:
-# cp -a Python-2.7.5/* $BOSH_INSTALL_TARGET
+#cp -a Python-2.7.5/* $BOSH_INSTALL_TARGET
