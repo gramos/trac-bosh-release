@@ -1,0 +1,56 @@
+---
+name: tracdev001
+director_uuid: 365eb26d-146e-4d12-888f-d9249dbef375
+release:
+  name: trac
+  version: latest
+compilation:
+  workers: 2
+  network: default
+  reuse_compilation_vms: true
+  cloud_properties:
+    instance_type: random
+
+update:
+  canaries: 1
+  canary_watch_time: 30000-240000
+  update_watch_time: 30000-600000
+  max_in_flight: 3
+
+networks:
+- name: default
+  subnets:
+  - range: 10.244.2.0/24
+    reserverd: 
+      - 10.244.2.0
+      - 10.244.2.255
+      - 10.244.2.1
+    static:
+      - 10.244.2.2
+      - 10.244.2.3
+      - 10.244.2.4
+    cloud_properties:
+      name: random
+
+resource_pools:
+- name: common
+  network: default
+  size: 1
+  stemcell:
+    name: bosh-stemcell
+    version: latest
+  cloud_properties:
+    instance_type: m1.small
+
+jobs:
+- name: trac
+  template: trac
+  instances: 1
+  resource_pool: common
+  networks:
+  - name: default
+    default:
+    - dns
+    - gateway
+
+properties: {}
