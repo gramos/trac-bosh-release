@@ -1,6 +1,5 @@
 ---
 name: trac
-
+dependencies: []
 files:
-
-  - trac/Trac-1.0.1.tar.gz
+- trac/Trac-1.0.1.tar.gz
