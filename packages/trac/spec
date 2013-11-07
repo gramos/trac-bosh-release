@@ -1,7 +1,6 @@
 ---
 name: trac
-dependencies: 
-  - python
+dependencies: []
 
 files:
   - trac/Trac-1.0.1.tar.gz
