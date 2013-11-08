@@ -13,8 +13,8 @@ compilation:
 
 update:
   canaries: 1
-  canary_watch_time: 30000-240000
-  update_watch_time: 30000-600000
+  canary_watch_time: 30000-40000
+  update_watch_time: 30000-40000
   max_in_flight: 3
 
 networks:

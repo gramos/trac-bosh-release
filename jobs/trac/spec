@@ -1,8 +1,8 @@
 ---
 name: trac
 packages: 
+  - python
   - trac
-
 templates:
   bin/trac_ctl: bin/trac_ctl
   bin/monit_debugger: bin/monit_debugger
