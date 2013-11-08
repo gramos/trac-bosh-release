@@ -5,10 +5,9 @@ set -u # report the usage of uninitialized variables
 # $BOSH_COMPILE_TARGET - where this package & spec'd source files are available
 # $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
 export HOME=/var/vcap
-export TRAC_HOME=$HOME/trac
 
-echo "Creating $TRAC_HOME..."
-mkdir -p $TRAC_HOME
+export PYTHONPATH=$BOSH_INSTALL_TARGET/trac
+export PYTHONPATH=$PYTHONPATH:$BOSH_INSTALL_TARGET/trac/lib/python
 
 curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py > ez_setup.py
 python ez_setup.py
@@ -20,17 +19,13 @@ echo "Installing trac..."
 cd Trac-1.0.1
 
 mkdir -p $BOSH_INSTALL_TARGET/trac/lib/python
-
-export PYTHONPATH=$BOSH_INSTALL_TARGET/trac
-export PYTHONPATH=$PYTHONPATH:$BOSH_INSTALL_TARGET/trac/lib/python
-
 python setup.py install --home $BOSH_INSTALL_TARGET/trac
 
 export PATH=$PATH:$BOSH_INSTALL_TARGET/trac/bin
 
 echo "Creating trac project..."
-trac-admin $TRAC_HOME/mytracproject initenv "My Project" sqlite:db/myproject.db
+trac-admin $BOSH_INSTALL_TARGET/mytracproject initenv "My Project" sqlite:db/myproject.db
 
 echo "Giving permissions to /usr/local/mytracproject/conf/trac.ini"
-chmod a+r $TRAC_HOME/mytracproject/conf/trac.ini
+chmod a+r $BOSH_INSTALL_TARGET/mytracproject/conf/trac.ini
 
