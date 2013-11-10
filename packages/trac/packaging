@@ -6,13 +6,13 @@ set -u # report the usage of uninitialized variables
 # $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
 export HOME=/var/vcap
 export PYTHON_BIN=/var/vcap/packages/python/bin/python
-export PYTHONPATH=/var/vcap/packages/trac/trac/lib/python/:$BOSH_INSTALL_TARGET/trac/lib/python
+export PYTHONPATH=/var/vcap/packages/trac/trac/lib/python/:$BOSH_INSTALL_TARGET/trac/lib/python:/var/vcap/packages/python/lib/lib/python2.7/site-packages/ 
 
-curl https://pypi.python.org/packages/source/s/setuptools/setuptools-1.3.1.tar.gz
+curl https://pypi.python.org/packages/source/s/setuptools/setuptools-1.3.1.tar.gz > setuptools-1.3.1.tar.gz
 tar xzf setuptools-1.3.1.tar.gz
 
 cd setuptools-1.3.1
-$PYTHON_BIN setup.py --prefix=/var/vcap/packages/python/lib
+$PYTHON_BIN setup.py install --prefix=/var/vcap/packages/python/lib 
 cd ..
 
 echo "Extracting trac..."
