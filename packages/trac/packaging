@@ -21,12 +21,17 @@ mkdir -p $BOSH_INSTALL_TARGET/trac/lib/python
 $PYTHON_BIN setup.py install --user
 cd ..
 
+
 # -------------------------------------------------------------------
 echo "Installing pysqlite..."
 curl https://pypi.python.org/packages/source/p/pysqlite/pysqlite-2.6.3.tar.gz > pysqlite-2.6.3.tar.gz
 tar xfz pysqlite-2.6.3.tar.gz
 cd pysqlite-2.6.3
-CFLAGS=-I/var/vcap/packages/sqlite/include $PYTHON_BIN setup.py install --user
+
+export LD_LIBRARY_PATH=/var/vcap/packages/sqlite/include:/var/vcap/packages/sqlite/lib:/var/vcap/packages/sqlite/lib
+CFLAGS="-I/var/vcap/packages/sqlite/include -I/var/vcap/packages/sqlite/lib -I/var/vcap/packages/sqlite -L/var/vcap/packages/sqlite/lib" $PYTHON_BIN setup.py install --user
+
+cd ..
 
 
 # -------------------------------------------------------------------

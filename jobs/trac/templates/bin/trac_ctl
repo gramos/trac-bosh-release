@@ -11,11 +11,10 @@ export LANG=en_US.UTF-8
 
 export PYTHONUSERBASE=/var/vcap/packages/trac/trac
 
-
 case $1 in
 
   start)
-    exec tracd --daemonize --port=80 /var/vcap/packages/mytracproject --pidfile=$PIDFILE\
+    exec /var/vcap/packages/trac/trac/bin/tracd --daemonize --port=80 /var/vcap/packages/mytracproject --pidfile=$PIDFILE\
          >>$LOG_DIR/$JOB_NAME.stdout.log \
          2>>$LOG_DIR/$JOB_NAME.stderr.log
 
