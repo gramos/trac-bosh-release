@@ -2,6 +2,7 @@
 name: trac
 packages: 
   - python
+  - sqlite
   - trac
 templates:
   bin/trac_ctl: bin/trac_ctl
