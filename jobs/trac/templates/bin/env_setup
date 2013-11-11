@@ -1,0 +1,10 @@
+PROFILE_FILE=/etc/profile
+
+echo 'export LANG=en_US.UTF-8' >> $PROFILE_FILE
+echo 'export PYTHON_BIN=/var/vcap/packages/python/bin/python' >> $PROFILE_FILE
+echo 'export PYTHONPATH=/var/vcap/packages/python:/var/vcap/packages/trac/trac:/var/vcap/packages/trac/trac' >> $PROFILE_FILE
+echo 'export PYTHONUSERBASE=/var/vcap/packages/trac/trac' >> $PROFILE_FILE
+echo 'export TRACD=/var/vcap/packages/trac/trac/bin/tracd' >> $PROFILE_FILE
+echo 'export TRAC_ADMIN=/var/vcap/packages/trac/trac-admin' >> $PROFILE_FILE
+
+echo 'echo "Already updated profile."' > /var/vcap/jobs/trac/bin/env_setup

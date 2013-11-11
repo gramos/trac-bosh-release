@@ -7,6 +7,7 @@ packages:
 templates:
   bin/trac_ctl: bin/trac_ctl
   bin/monit_debugger: bin/monit_debugger
+  bin/env_setup: bin/env_setup
   data/properties.sh.erb: data/properties.sh
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
