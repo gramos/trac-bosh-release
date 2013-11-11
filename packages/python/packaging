@@ -12,5 +12,3 @@ cd Python-2.7.5
 ./configure --prefix=${BOSH_INSTALL_TARGET}
 make
 make install
-# Alternatively, to copy archive contents:
-# cp -a Python-2.7.5/* $BOSH_INSTALL_TARGET

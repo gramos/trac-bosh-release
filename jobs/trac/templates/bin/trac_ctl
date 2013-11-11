@@ -9,13 +9,13 @@ source /var/vcap/jobs/trac/helpers/ctl_setup.sh 'trac'
 export PORT=${PORT:-5000}
 export LANG=en_US.UTF-8
 
-export PYTHONPATH=$BOSH_INSTALL_TARGET/trac
-export PYTHONPATH=$PYTHONPATH:$BOSH_INSTALL_TARGET/trac/lib/python
+export PYTHONUSERBASE=/var/vcap/packages/trac/trac
+
 
 case $1 in
 
   start)
-    exec tracd --daemonize --port=80 /usr/local/mytracproject --pidfile=$PIDFILE\
+    exec tracd --daemonize --port=80 /var/vcap/packages/mytracproject --pidfile=$PIDFILE\
          >>$LOG_DIR/$JOB_NAME.stdout.log \
          2>>$LOG_DIR/$JOB_NAME.stderr.log
 
