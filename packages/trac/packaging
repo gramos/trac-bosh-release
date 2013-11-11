@@ -46,9 +46,9 @@ export PATH=$PATH:$BOSH_INSTALL_TARGET/trac/bin
 
 # -------------------------------------------------------------------
 echo "Creating trac project..."
-trac-admin $BOSH_INSTALL_TARGET/mytracproject initenv "My Project" sqlite:db/myproject.db
+trac-admin $BOSH_INSTALL_TARGET/mytracproject initenv "My Project" sqlite:db/myproject.db > $BOSH_INSTALL_TARGET/trac_admin_log.txt
 
 # -------------------------------------------------------------------
-echo "Giving permissions to /usr/local/mytracproject/conf/trac.ini"
-chmod a+r $BOSH_INSTALL_TARGET/mytracproject/conf/trac.ini
+# echo "Giving permissions to /usr/local/mytracproject/conf/trac.ini"
+# chmod a+r $BOSH_INSTALL_TARGET/mytracproject/conf/trac.ini
 

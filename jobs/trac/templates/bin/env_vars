@@ -1,0 +1,6 @@
+export LANG=en_US.UTF-8
+export PYTHON_BIN=/var/vcap/packages/python/bin/python
+export PYTHONPATH=/var/vcap/packages/python:/var/vcap/packages/trac/trac:/var/vcap/packages/trac/trac
+export PYTHONUSERBASE=/var/vcap/packages/trac/trac
+export TRACD=/var/vcap/packages/trac/trac/bin/tracd
+export TRAC_ADMIN=/var/vcap/packages/trac/trac-admin
