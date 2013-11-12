@@ -1,0 +1,8 @@
+PROFILE_FILE=/etc/profile
+ROOT_PROFILE=/root/.bashrc
+EXPORTS=/var/vcap/jobs/trac/bin/env_vars
+
+cat $EXPORTS >> $PROFILE_FILE
+cat $EXPORTS >> $ROOT_PROFILE
+
+# echo 'echo "env_setup: already ran. Called from trac_ctl."' > /var/vcap/jobs/trac/bin/env_setup
