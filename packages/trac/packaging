@@ -1,3 +1,10 @@
+#!/bin/bash
+#
+# Script to install and compile trac and all its dependencies
+# 
+# BOSH_INSTALL_TARGET points to a dir were the packege will be installed and inside we will 
+# copy or move our binaries to make them available to the for.
+
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
@@ -5,33 +12,32 @@ set -u # report the usage of uninitialized variables
 # $BOSH_COMPILE_TARGET - where this package & spec'd source files are available
 # $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
 
-export HOME=/var/vcap
-export PYTHON_BIN=/var/vcap/packages/python/bin/python
+# Setting some envars to siplify a few things.
+export HOME=/var/vcap 
 
+# Python is a dependency, and its binary should be available here.
+export PYTHON_BIN=/var/vcap/packages/python/bin/python 
+
+# We tell Python where to find libraries
 export PYTHONPATH=/var/vcap/packages/python:/var/vcap/packages/trac/trac:/var/vcap/packages/trac/trac
 export PYTHONUSERBASE=$BOSH_INSTALL_TARGET/trac
 
-echo "Installing setuptools..."
-curl https://pypi.python.org/packages/source/s/setuptools/setuptools-1.3.1.tar.gz > setuptools-1.3.1.tar.gz
-tar xzf setuptools-1.3.1.tar.gz
 
 # -------------------------------------------------------------------
-cd setuptools-1.3.1
-mkdir -p $BOSH_INSTALL_TARGET/trac/lib/python
-$PYTHON_BIN setup.py install --user
-cd ..
-
-
-# -------------------------------------------------------------------
+# We install pysqlite manually to let it build sqlite on its own.
 echo "Installing pysqlite..."
-curl https://pypi.python.org/packages/source/p/pysqlite/pysqlite-2.6.3.tar.gz > pysqlite-2.6.3.tar.gz
-tar xfz pysqlite-2.6.3.tar.gz
+
+tar xfz trac/pysqlite-2.6.3.tar.gz
 cd pysqlite-2.6.3
 
+# This compilation needs some extra options, first we need to point the dynamic linker to the
+# sqlite headers
 export LD_LIBRARY_PATH=/var/vcap/packages/sqlite/include:/var/vcap/packages/sqlite/lib:/var/vcap/packages/sqlite/lib
-CFLAGS="-I/var/vcap/packages/sqlite/include -I/var/vcap/packages/sqlite/lib -I/var/vcap/packages/sqlite -L/var/vcap/packages/sqlite/lib" $PYTHON_BIN setup.py install --user
 
-cd ..
+# Then we specify to the compiler a few flags to tell it where to look for necesary files.
+# The flag --user here specifies to install everything on user home defined by PYTHONUSERBASE
+export CFLAGS="-I/var/vcap/packages/sqlite/include -I/var/vcap/packages/sqlite/lib -I/var/vcap/packages/sqlite -L/var/vcap/packages/sqlite/lib"
+$PYTHON_BIN pysqlite-2.6.3/setup.py install --user
 
 
 # -------------------------------------------------------------------
@@ -40,15 +46,15 @@ tar xzf trac/Trac-1.0.1.tar.gz
 
 # -------------------------------------------------------------------
 echo "Installing trac..."
-cd Trac-1.0.1
-$PYTHON_BIN setup.py install --home $BOSH_INSTALL_TARGET/trac
+
+# setup will install on the dir specified by --home
+$PYTHON_BIN Trac-1.0.1/setup.py install --home $BOSH_INSTALL_TARGET/trac
+
+# After installation, we make the trac binaries available
 export PATH=$PATH:$BOSH_INSTALL_TARGET/trac/bin
 
 # -------------------------------------------------------------------
+# Finally we create a trac project to initialize an env and start the server.
 echo "Creating trac project..."
-trac-admin $BOSH_INSTALL_TARGET/mytracproject initenv "My Project" sqlite:db/myproject.db > $BOSH_INSTALL_TARGET/trac_admin_log.txt
-
-# -------------------------------------------------------------------
-# echo "Giving permissions to /usr/local/mytracproject/conf/trac.ini"
-# chmod a+r $BOSH_INSTALL_TARGET/mytracproject/conf/trac.ini
+trac-admin $BOSH_INSTALL_TARGET/mytracproject initenv "My Project" sqlite:db/myproject.db
 
