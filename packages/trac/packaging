@@ -17,10 +17,15 @@ export HOME=/var/vcap
 
 # Python is a dependency, and its binary should be available here.
 export PYTHON_BIN=/var/vcap/packages/python/bin/python 
+export EASY_INSTALL=/var/vcap/packages/python/bin/easy_install
 
 # We tell Python where to find libraries
-export PYTHONPATH=/var/vcap/packages/python:/var/vcap/packages/trac/trac:/var/vcap/packages/trac/trac
+export PYTHONPATH=/var/vcap/packages/python
 export PYTHONUSERBASE=$BOSH_INSTALL_TARGET/trac
+
+# It is always handy to keep some logs to see what happened
+export LOG_DIR=$BOSH_INSTALL_TARGET/logs
+mkdir $LOG_DIR
 
 
 # -------------------------------------------------------------------
@@ -28,17 +33,20 @@ export PYTHONUSERBASE=$BOSH_INSTALL_TARGET/trac
 echo "Installing pysqlite..."
 
 tar xfz trac/pysqlite-2.6.3.tar.gz
-cd pysqlite-2.6.3
 
 # This compilation needs some extra options, first we need to point the dynamic linker to the
 # sqlite headers
 export LD_LIBRARY_PATH=/var/vcap/packages/sqlite/include:/var/vcap/packages/sqlite/lib:/var/vcap/packages/sqlite/lib
 
+cd pysqlite-2.6.3
 # Then we specify to the compiler a few flags to tell it where to look for necesary files.
 # The flag --user here specifies to install everything on user home defined by PYTHONUSERBASE
 export CFLAGS="-I/var/vcap/packages/sqlite/include -I/var/vcap/packages/sqlite/lib -I/var/vcap/packages/sqlite -L/var/vcap/packages/sqlite/lib"
-$PYTHON_BIN pysqlite-2.6.3/setup.py install --user
+$PYTHON_BIN setup.py install --user > $LOG_DIR/pysqlite.log
+cd ..
 
+# TODO download and manually install this dependency to freeze version
+$PYTHONPATH/bin/easy_install --user genshi > $LOG_DIR/genshi.log
 
 # -------------------------------------------------------------------
 echo "Extracting trac..."
@@ -48,7 +56,9 @@ tar xzf trac/Trac-1.0.1.tar.gz
 echo "Installing trac..."
 
 # setup will install on the dir specified by --home
-$PYTHON_BIN Trac-1.0.1/setup.py install --home $BOSH_INSTALL_TARGET/trac
+cd Trac-1.0.1
+$PYTHON_BIN setup.py install --user > $LOG_DIR/trac.log
+cd ..
 
 # After installation, we make the trac binaries available
 export PATH=$PATH:$BOSH_INSTALL_TARGET/trac/bin
@@ -56,5 +66,5 @@ export PATH=$PATH:$BOSH_INSTALL_TARGET/trac/bin
 # -------------------------------------------------------------------
 # Finally we create a trac project to initialize an env and start the server.
 echo "Creating trac project..."
-trac-admin $BOSH_INSTALL_TARGET/mytracproject initenv "My Project" sqlite:db/myproject.db
+trac-admin $BOSH_INSTALL_TARGET/mytracproject initenv "My Project" sqlite:db/myproject.db > $LOG_DIR/trac_project.log
 

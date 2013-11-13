@@ -8,6 +8,8 @@ export HOME=/var/vcap
 
 tar xfv sqlite/sqlite-autoconf-3080100.tar.gz
 
-./sqlite-autoconf-3080100/configure --prefix=${BOSH_INSTALL_TARGET}
+cd sqlite-autoconf-3080100 
+./configure --prefix=${BOSH_INSTALL_TARGET}
 make
 make install
+cd ..

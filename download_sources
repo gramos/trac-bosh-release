@@ -4,15 +4,15 @@
 
 # Python and python tools
 mkdir -p src/python
-curl http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz > src/python/Python-2.7.5.tgz
+curl http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz > src/python/Python-2.7.6.tgz
 curl https://pypi.python.org/packages/source/s/setuptools/setuptools-1.3.1.tar.gz > src/python/setuptools-1.3.1.tar.gz
 
 
 # Trac and dependencies
-mkdir -p src/python
+mkdir -p src/trac
 curl http://download.edgewall.org/trac/Trac-1.0.1.tar.gz > src/trac/Trac-1.0.1.tar.gz
 curl https://pypi.python.org/packages/source/p/pysqlite/pysqlite-2.6.3.tar.gz > src/trac/pysqlite-2.6.3.tar.gz
 
 # Sqlite
-mkdir -p src/python
+mkdir -p src/sqlite
 curl http://www.sqlite.org/2013/sqlite-autoconf-3080100.tar.gz > src/sqlite/sqlite-autoconf-3080100.tar.gz
