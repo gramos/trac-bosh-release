@@ -4,5 +4,6 @@ dependencies:
   - python
   - sqlite
 files:
-  - trac/Trac-1.0.1.tar.gz
   - trac/pysqlite-2.6.3.tar.gz
+  - trac/Trac-1.0.1.tar.gz
+  - trac/Genshi-0.7.tar.gz

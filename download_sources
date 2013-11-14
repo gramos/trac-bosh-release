@@ -4,15 +4,65 @@
 
 # Python and python tools
 mkdir -p src/python
-curl http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz > src/python/Python-2.7.6.tgz
-curl https://pypi.python.org/packages/source/s/setuptools/setuptools-1.3.1.tar.gz > src/python/setuptools-1.3.1.tar.gz
+if [ -f src/python/Python-2.7.6.tgz ]
+then
+    echo Skipping Python-2.7.6.tgz, already downloaded.
+else
+    echo Downloading Python-2.7.6.tgz...
+    curl http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz > src/python/Python-2.7.6.tgz
+    echo Done!
+fi
+
+if [ -f src/python/setuptools-1.3.1.tar.gz ]
+then
+    echo Skipping setuptools-1.3.1.tar.gz, already downloaded.
+else
+    echo Downloading setuptools-1.3.1.tar.gz...
+    curl https://pypi.python.org/packages/source/s/setuptools/setuptools-1.3.1.tar.gz > src/python/setuptools-1.3.1.tar.gz
+    echo Done!
+fi
 
 
-# Trac and dependencies
+
+
+# Trac
 mkdir -p src/trac
-curl http://download.edgewall.org/trac/Trac-1.0.1.tar.gz > src/trac/Trac-1.0.1.tar.gz
-curl https://pypi.python.org/packages/source/p/pysqlite/pysqlite-2.6.3.tar.gz > src/trac/pysqlite-2.6.3.tar.gz
+if [ -f src/trac/pysqlite-2.6.3.tar.gz ]
+then
+    echo Skipping pysqlite-2.6.3.tar.gz, already downloaded.
+else
+    echo Downloading pysqlite-2.6.3.tar.gz...
+    curl https://pypi.python.org/packages/source/p/pysqlite/pysqlite-2.6.3.tar.gz > src/trac/pysqlite-2.6.3.tar.gz
+    echo Done!
+fi
+
+if [ -f src/trac/Genshi-0.7.tar.gz ]
+then
+    echo Skipping Genshi-0.7.tar.gz, already downloaded.
+else
+    echo Downloading Genshi-0.7.tar.gz...
+    curl http://ftp.edgewall.com/pub/genshi/Genshi-0.7.tar.gz > src/trac/Genshi-0.7.tar.gz
+    echo Done!
+fi
+
+if [ -f src/trac/Trac-1.0.1.tar.gz ]
+then
+    echo Skipping Trac-1.0.1.tar.gz, already downloaded.
+else
+    echo Downloading Trac-1.0.1.tar.gz...
+    curl http://download.edgewall.org/trac/Trac-1.0.1.tar.gz > src/trac/Trac-1.0.1.tar.gz
+    echo Done!
+fi
+
 
 # Sqlite
 mkdir -p src/sqlite
-curl http://www.sqlite.org/2013/sqlite-autoconf-3080100.tar.gz > src/sqlite/sqlite-autoconf-3080100.tar.gz
+if [ -f src/sqlite/sqlite-autoconf-3080100.tar.gz ]
+then
+    echo Skipping sqlite-autoconf-3080100.tar.gz, already downloaded.
+else
+    echo Downloading sqlite-autoconf-3080100.tar.gz...
+    curl http://www.sqlite.org/2013/sqlite-autoconf-3080100.tar.gz > src/sqlite/sqlite-autoconf-3080100.tar.gz
+    echo Done!
+fi
+

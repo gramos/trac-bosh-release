@@ -46,7 +46,11 @@ $PYTHON_BIN setup.py install --user > $LOG_DIR/pysqlite.log
 cd ..
 
 # TODO download and manually install this dependency to freeze version
-$PYTHONPATH/bin/easy_install --user genshi > $LOG_DIR/genshi.log
+tar xfz trac/Genshi-0.7.tar.gz
+cd Genshi-0.7
+$PYTHONPATH/bin/easy_install --user . > $LOG_DIR/genshi.log
+cd ..
+
 
 # -------------------------------------------------------------------
 echo "Extracting trac..."
