@@ -22,9 +22,6 @@ else
     echo Done!
 fi
 
-
-
-
 # Trac
 mkdir -p src/trac
 if [ -f src/trac/pysqlite-2.6.3.tar.gz ]

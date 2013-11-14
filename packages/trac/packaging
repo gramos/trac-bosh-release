@@ -2,7 +2,7 @@
 #
 # Script to install and compile trac and all its dependencies
 # 
-# BOSH_INSTALL_TARGET points to a dir were the packege will be installed and inside we will 
+# BOSH_INSTALL_TARGET points to a dir where the packege will be installed and inside we will 
 # copy or move our binaries to make them available to the for.
 
 set -e # exit immediately if a simple command exits with a non-zero status
