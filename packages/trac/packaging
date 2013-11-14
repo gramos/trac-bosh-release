@@ -72,3 +72,14 @@ export PATH=$PATH:$BOSH_INSTALL_TARGET/trac/bin
 echo "Creating trac project..."
 trac-admin $BOSH_INSTALL_TARGET/mytracproject initenv "My Project" sqlite:db/myproject.db > $LOG_DIR/trac_project.log
 
+echo "Creating admin user..."
+trac-admin $BOSH_INSTALL_TARGET/mytracproject permission add admin TRAC_ADMIN
+
+echo "Initializing project..."
+cp trac/project_files/user_admin.py $BOSH_INSTALL_TARGET/mytracproject/
+mkdir -p $BOSH_INSTALL_TARGET/mytracproject/htdocs/images
+cp trac/project_files/logo.jpg $BOSH_INSTALL_TARGET/mytracproject/htdocs/images
+$PYTHON_BIN $BOSH_INSTALL_TARGET/mytracproject/user_admin.py -u admin -p 123456 >> $BOSH_INSTALL_TARGET/mytracproject/passwd
+sed -i 's/src = .*/src = site\/images\/logo.jpg/g' $BOSH_INSTALL_TARGET/mytracproject/conf/trac.ini
+
+
