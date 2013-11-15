@@ -2,4 +2,5 @@
 name: python
 dependencies: []
 files:
-- python/Python-2.7.5.tgz
+  - python/Python-2.7.6.tgz
+  - python/setuptools-1.3.1.tar.gz
